@@ -1,10 +1,10 @@
-import { Tile } from "./MyComponent";
+import { Grid } from "./Grid";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <Tile tile={{ pos: { x: 10, y: 10 } }} />
+      <Grid width={10} height={10} mineChance={25} />
     </div>
   );
 }
