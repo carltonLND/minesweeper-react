@@ -1,15 +1,12 @@
-import { MyComponent } from "./MyComponent";
+import { Tile } from "./MyComponent";
 import "./App.css";
-import { greet } from "../greet";
 
 function App() {
-    return (
-        <div className="App">
-            <MyComponent />
-
-            {greet("World")}
-        </div>
-    );
+  return (
+    <div className="App">
+      <Tile tile={{ pos: { x: 10, y: 10 } }} />
+    </div>
+  );
 }
 
 export default App;
