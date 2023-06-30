@@ -1,25 +1,49 @@
-import { Tile } from "./Tile";
+type TileKind = "mine" | "empty";
+
+interface Position {
+  x: number;
+  y: number;
+}
+
+interface Tile {
+  pos: Position;
+  kind: TileKind;
+  content: number | string;
+}
 
 interface GridProps {
-  width: number;
-  height: number;
-  mineChance: number;
+  tiles: Tile[];
 }
 
 export function Grid(props: GridProps) {
-  return <div className="grid">{generateTiles(props)}</div>;
+  return (
+    <div className="grid">
+      {props.tiles.map((tile) => {
+        return (
+          <div
+            key={`${tile.pos.y},${tile.pos.y}`}
+            className={calcTileClass(tile)}
+          >
+            {tile.content}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
-function generateTiles({ width, height, mineChance }: GridProps) {
+export function generateTiles(
+  width: number,
+  height: number,
+  mineChance: number
+): Tile[] {
   const tileArray = [];
 
   for (let [i, j] = [0, 0]; i < width && j < height; j++) {
-    tileArray.push(
-      <Tile
-        key={`${i}:${j}`}
-        tile={{ pos: { x: i, y: j }, isMine: randomMine(mineChance) }}
-      />
-    );
+    const kind = randomMine(mineChance);
+    const pos = { x: i, y: j };
+    const content = kind === "mine" ? "💣" : 0;
+    tileArray.push({ pos, kind, content });
 
     if (j === height - 1) {
       j = -1;
@@ -27,9 +51,58 @@ function generateTiles({ width, height, mineChance }: GridProps) {
     }
   }
 
+  return updateMineCount(tileArray);
+}
+
+function randomMine(odds: number): TileKind {
+  return Math.random() <= odds / 100 ? "mine" : "empty";
+}
+
+function updateMineCount(tileArray: Tile[]) {
+  for (const tile of tileArray) {
+    if (tile.kind === "mine") {
+      continue;
+    }
+
+    tile.content = calcNearbyMines(tile, tileArray);
+  }
+
   return tileArray;
 }
 
-function randomMine(odds: number): boolean {
-  return Math.random() <= odds / 100;
+function calcNearbyMines(currTile: Tile, tiles: Tile[]): number | "" {
+  const tileOffsets: [number, number][] = [
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
+  ];
+
+  let mineCount = 0;
+
+  for (const offset of tileOffsets) {
+    const offsetX = currTile.pos.x + offset[0];
+    const offsetY = currTile.pos.y + offset[1];
+
+    const nearbyTile = tiles.find(
+      (tile) => tile.pos.x === offsetX && tile.pos.y === offsetY
+    );
+
+    if (nearbyTile && nearbyTile.kind === "mine") {
+      mineCount++;
+    }
+  }
+
+  return mineCount === 0 ? "" : mineCount;
+}
+
+function calcTileClass(tile: Tile): string {
+  if (tile.content === "" || tile.kind === "mine") {
+    return "tile";
+  }
+  return `tile tile-${tile.content}`;
 }
