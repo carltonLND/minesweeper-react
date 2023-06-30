@@ -101,8 +101,13 @@ function calcNearbyMines(currTile: Tile, tiles: Tile[]): number | "" {
 }
 
 function calcTileClass(tile: Tile): string {
-  if (tile.content === "" || tile.kind === "mine") {
+  if (tile.content === "") {
     return "tile";
   }
+
+  if (tile.kind === "mine") {
+    return "tile mine";
+  }
+
   return `tile tile-${tile.content}`;
 }

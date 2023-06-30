@@ -40,6 +40,10 @@ html {
   justify-content: center;
 }
 
+.mine {
+  background-color: crimson;
+}
+
 .tile-1 {
   color: blue;
 }
