@@ -30,6 +30,8 @@ html {
 }
 
 .tile {
+  font-size: 40px;
+  color: black;
   background-color: #c7c7c7;
   width: 50px;
   height: 50px;
@@ -38,11 +40,26 @@ html {
   justify-content: center;
 }
 
-.mine {
-  background-color: maroon;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.tile-1 {
+  color: blue;
+}
+
+.tile-2 {
+  color: green;
+}
+
+.tile-3 {
+  color: red;
+}
+
+.tile-4 {
+  color: darkblue;
+}
+
+.tile-5 {
+  color: maroon;
+}
+
+.tile-6 {
+  color: teal;
 }
