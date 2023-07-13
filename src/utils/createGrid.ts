@@ -38,9 +38,7 @@ export function generateCells(
     }
   }
 
-  updateNearbyMineCounts(cells);
-
-  return cells;
+  return updateNearbyMineCounts(cells);
 }
 
 function createNewTile(pos: Position): Tile {
@@ -66,12 +64,14 @@ function randomIsMine(odds: number): boolean {
   return Math.random() <= odds / 100;
 }
 
-function updateNearbyMineCounts(cells: Cell[]) {
+export function updateNearbyMineCounts(cells: Cell[]) {
   cells.forEach((cell) => {
     if (!cell.isMine) {
       cell.nearbyMines = calcNearbyMines(cell.pos, cells);
     }
   });
+
+  return cells;
 }
 
 function calcNearbyMines(currCellPos: Position, cells: Cell[]): number {
