@@ -74,17 +74,17 @@ function updateNearbyMineCounts(cells: Cell[]) {
   });
 }
 
-function calcNearbyMines(cellPos: Position, cells: Cell[]): number {
+function calcNearbyMines(currCellPos: Position, cells: Cell[]): number {
   let mineCount = 0;
 
-  for (let x = -1; x <= 1; x++) {
-    for (let y = -1; y <= 1; y++) {
+  for (let x = -1; x < 2; x++) {
+    for (let y = -1; y < 2; y++) {
       if (x === 0 && y === 0) {
         continue;
       }
 
-      const offsetX = cellPos.x + x;
-      const offsetY = cellPos.y + y;
+      const offsetX = currCellPos.x + x;
+      const offsetY = currCellPos.y + y;
 
       const nearbyCell = cells.find(
         (cell) => cell.pos.x === offsetX && cell.pos.y === offsetY
