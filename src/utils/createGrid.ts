@@ -75,29 +75,24 @@ function updateNearbyMineCounts(cells: Cell[]) {
 }
 
 function calcNearbyMines(cellPos: Position, cells: Cell[]): number {
-  const tileOffsets: [number, number][] = [
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, -1],
-    [0, 1],
-    [1, -1],
-    [1, 0],
-    [1, 1],
-  ];
-
   let mineCount = 0;
 
-  for (const offset of tileOffsets) {
-    const offsetX = cellPos.x + offset[0];
-    const offsetY = cellPos.y + offset[1];
+  for (let x = -1; x <= 1; x++) {
+    for (let y = -1; y <= 1; y++) {
+      if (x === 0 && y === 0) {
+        continue;
+      }
 
-    const nearbyCell = cells.find(
-      (cell) => cell.pos.x === offsetX && cell.pos.y === offsetY
-    );
+      const offsetX = cellPos.x + x;
+      const offsetY = cellPos.y + y;
 
-    if (nearbyCell !== undefined && nearbyCell.isMine) {
-      mineCount++;
+      const nearbyCell = cells.find(
+        (cell) => cell.pos.x === offsetX && cell.pos.y === offsetY
+      );
+
+      if (nearbyCell !== undefined && nearbyCell.isMine) {
+        mineCount++;
+      }
     }
   }
 
