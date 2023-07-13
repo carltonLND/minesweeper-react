@@ -44,26 +44,34 @@ html {
   background-color: crimson;
 }
 
-.tile-1 {
+.nearby-1 {
   color: blue;
 }
 
-.tile-2 {
+.nearby-2 {
   color: green;
 }
 
-.tile-3 {
+.nearby-3 {
   color: red;
 }
 
-.tile-4 {
+.nearby-4 {
   color: darkblue;
 }
 
-.tile-5 {
+.nearby-5 {
   color: maroon;
 }
 
-.tile-6 {
+.nearby-6 {
   color: teal;
+}
+
+.nearby-7 {
+  color: darkslategray;
+}
+
+.nearby-8 {
+  color: black;
 }
