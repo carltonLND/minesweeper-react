@@ -1,17 +1,20 @@
-import { Grid, generateTiles } from "./Grid";
+import { generateCells } from "../utils/createGrid";
+import { Grid } from "./Grid";
 import { useMemo } from "react";
 import "./App.css";
 
 const width = 10;
 const height = 10;
-const mineChance = 15;
+const mineChance = 20;
 
 function App() {
-  const tiles = useMemo(() => generateTiles(width, height, mineChance), []);
+  const cells = useMemo(() => generateCells(width, height, mineChance), []);
 
   return (
     <div className="App">
-      <Grid tiles={tiles} />
+      <div className="grid-container">
+        <Grid cells={cells} />
+      </div>
     </div>
   );
 }
