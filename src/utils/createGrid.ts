@@ -1,6 +1,7 @@
 export type Cell = Mine | Tile;
 
 interface Mine {
+  id: number;
   pos: Position;
   isHidden: boolean;
   isFlagged: boolean;
@@ -8,6 +9,7 @@ interface Mine {
 }
 
 interface Tile {
+  id: number;
   pos: Position;
   isHidden: boolean;
   isFlagged: boolean;
@@ -31,8 +33,8 @@ export function generateCells(
     for (let y = 0; y < height; y++) {
       const pos: Position = { x, y };
       const newCell: Cell = randomIsMine(mineChance)
-        ? createNewMine(pos)
-        : createNewTile(pos);
+        ? createNewMine(pos, cells.length)
+        : createNewTile(pos, cells.length);
 
       cells.push(newCell);
     }
@@ -41,8 +43,9 @@ export function generateCells(
   return updateNearbyMineCounts(cells);
 }
 
-function createNewTile(pos: Position): Tile {
+function createNewTile(pos: Position, id: number): Tile {
   return {
+    id,
     pos,
     isHidden: true,
     isFlagged: false,
@@ -51,8 +54,9 @@ function createNewTile(pos: Position): Tile {
   };
 }
 
-function createNewMine(pos: Position): Mine {
+function createNewMine(pos: Position, id: number): Mine {
   return {
+    id,
     pos,
     isHidden: true,
     isFlagged: false,
@@ -97,4 +101,24 @@ function calcNearbyMines(currCellPos: Position, cells: Cell[]): number {
   }
 
   return mineCount;
+}
+
+export function updatedFlagCell(cell: Cell): Cell {
+  return {
+    ...cell,
+    pos: {
+      ...cell.pos,
+    },
+    isFlagged: cell.isHidden ? (cell.isFlagged ? false : true) : false,
+  };
+}
+
+export function updatedHiddenCell(cell: Cell): Cell {
+  return {
+    ...cell,
+    pos: {
+      ...cell.pos,
+    },
+    isHidden: cell.isFlagged ? true : false,
+  };
 }
