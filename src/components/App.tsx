@@ -28,6 +28,7 @@ function App() {
     if (cell.isMine) {
       // TODO: Handle loss
 
+      alert("You lose");
       setCells(generateCells(width, height, mineChance));
     } else {
       setCells((prev) => {
