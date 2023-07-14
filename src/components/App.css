@@ -41,8 +41,8 @@ html {
   user-select: none;
 }
 
-.mine {
-  background-color: crimson;
+.hidden {
+  background: darkslategray;
 }
 
 .nearby-1 {
