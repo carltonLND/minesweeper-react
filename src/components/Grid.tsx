@@ -7,8 +7,8 @@ export function Grid({
   handleRightClick,
 }: {
   cells: Cell[];
-  handleLeftClick: (cell: Cell) => void;
-  handleRightClick: (cell: Cell) => void;
+  handleLeftClick?: (cell: Cell) => void;
+  handleRightClick?: (cell: Cell) => void;
 }): JSX.Element {
   return (
     <div className="grid" onContextMenu={(e) => e.preventDefault()}>
@@ -17,11 +17,21 @@ export function Grid({
           <div
             key={cell.id}
             className={calcCellClass(cell)}
-            onClick={() => handleLeftClick(cell)}
-            onKeyDown={() => handleLeftClick(cell)}
+            onClick={() => {
+              if (handleLeftClick !== undefined) {
+                handleLeftClick(cell);
+              }
+            }}
+            onKeyDown={() => {
+              if (handleLeftClick !== undefined) {
+                handleLeftClick(cell);
+              }
+            }}
             onContextMenu={(e) => {
-              e.preventDefault();
-              handleRightClick(cell);
+              if (handleRightClick !== undefined) {
+                e.preventDefault();
+                handleRightClick(cell);
+              }
             }}
             role="button"
             tabIndex={cell.id}
