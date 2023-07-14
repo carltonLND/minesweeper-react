@@ -76,14 +76,14 @@ test("test correct nearby mine counts, 3x3 grid", () => {
 
   const testGrid3x3: Cell[] = [
     {
-      id: 1,
+      id: 0,
       pos: { x: 0, y: 0 },
       isHidden: true,
       isFlagged: false,
       isMine: true,
     },
     {
-      id: 2,
+      id: 1,
       pos: { x: 0, y: 1 },
       isHidden: true,
       isFlagged: false,
@@ -91,14 +91,14 @@ test("test correct nearby mine counts, 3x3 grid", () => {
       nearbyMines: 2,
     },
     {
-      id: 3,
+      id: 2,
       pos: { x: 0, y: 2 },
       isHidden: true,
       isFlagged: false,
       isMine: true,
     },
     {
-      id: 4,
+      id: 3,
       pos: { x: 1, y: 0 },
       isHidden: true,
       isFlagged: false,
@@ -106,7 +106,7 @@ test("test correct nearby mine counts, 3x3 grid", () => {
       nearbyMines: 1,
     },
     {
-      id: 5,
+      id: 4,
       pos: { x: 1, y: 1 },
       isHidden: true,
       isFlagged: false,
@@ -114,7 +114,7 @@ test("test correct nearby mine counts, 3x3 grid", () => {
       nearbyMines: 2,
     },
     {
-      id: 6,
+      id: 5,
       pos: { x: 1, y: 2 },
       isHidden: true,
       isFlagged: false,
@@ -122,7 +122,7 @@ test("test correct nearby mine counts, 3x3 grid", () => {
       nearbyMines: 1,
     },
     {
-      id: 7,
+      id: 6,
       pos: { x: 2, y: 0 },
       isHidden: true,
       isFlagged: false,
@@ -130,7 +130,7 @@ test("test correct nearby mine counts, 3x3 grid", () => {
       nearbyMines: 0,
     },
     {
-      id: 8,
+      id: 7,
       pos: { x: 2, y: 1 },
       isHidden: true,
       isFlagged: false,
@@ -138,7 +138,7 @@ test("test correct nearby mine counts, 3x3 grid", () => {
       nearbyMines: 0,
     },
     {
-      id: 9,
+      id: 8,
       pos: { x: 2, y: 2 },
       isHidden: true,
       isFlagged: false,
