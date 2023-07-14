@@ -8,12 +8,15 @@ import { Grid } from "./Grid";
 import { useState } from "react";
 import "./App.css";
 
+type GameState = "playing" | "stopped";
+
 const width = 10;
 const height = 10;
 const mineChance = 20;
 
 function App() {
   const [cells, setCells] = useState(generateCells(width, height, mineChance));
+  const [gameState, setGameState] = useState<GameState>("stopped");
 
   const handleRightClick = (cell: Cell) => {
     setCells((prev) => {
@@ -45,13 +48,26 @@ function App() {
 
   return (
     <div className="App">
-      <div className="grid-container">
-        <Grid
-          cells={cells}
-          handleRightClick={handleRightClick}
-          handleLeftClick={handleLeftClick}
-        />
-      </div>
+      <button
+        onClick={() =>
+          setGameState(gameState === "playing" ? "stopped" : "playing")
+        }
+      >
+        {gameState === "playing" ? "Stop Game" : "Start Game"}
+      </button>
+      {gameState === "playing" ? (
+        <div className="grid-container">
+          <Grid
+            cells={cells}
+            handleRightClick={handleRightClick}
+            handleLeftClick={handleLeftClick}
+          />
+        </div>
+      ) : (
+        <div className="grid-container">
+          <Grid cells={cells} />
+        </div>
+      )}
     </div>
   );
 }
