@@ -16,8 +16,10 @@ interface GridProps {
 }
 
 export function Grid({ width, height, mineChance }: GridProps): JSX.Element {
-  const [cellsState, cellsDispatch] = useReducer(cellsReducer, [], () =>
-    generateCells(width, height, mineChance)
+  const [cellsState, cellsDispatch] = useReducer(
+    cellsReducer,
+    { width, height, mineChance },
+    generateCells
   );
 
   function cellsReducer(
@@ -26,7 +28,7 @@ export function Grid({ width, height, mineChance }: GridProps): JSX.Element {
   ) {
     switch (action.type) {
       case "restart_game":
-        return generateCells(width, height, mineChance);
+        return generateCells({ width, height, mineChance });
       case "toggle_flag":
         return state.map((cell) =>
           cell.id === action.id ? getUpdatedFlagCell(cell) : cell
@@ -40,7 +42,7 @@ export function Grid({ width, height, mineChance }: GridProps): JSX.Element {
     }
   }
 
-  const handleClick = (cell: Cell) => {
+  function handleClick(cell: Cell) {
     if (cell.isMine) {
       // TODO: Handle loss
 
@@ -52,7 +54,7 @@ export function Grid({ width, height, mineChance }: GridProps): JSX.Element {
       // TODO: Check win
       // TODO: Handle win
     }
-  };
+  }
 
   return (
     <div className="grid" onContextMenu={(e) => e.preventDefault()}>

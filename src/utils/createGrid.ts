@@ -22,11 +22,15 @@ interface Position {
   y: number;
 }
 
-export function generateCells(
-  width: number,
-  height: number,
-  mineChance: number
-): Cell[] {
+export function generateCells({
+  width,
+  height,
+  mineChance,
+}: {
+  width: number;
+  height: number;
+  mineChance: number;
+}): Cell[] {
   const cells: Cell[] = [];
 
   for (let x = 0; x < width; x++) {
