@@ -103,7 +103,7 @@ function calcNearbyMines(currCellPos: Position, cells: Cell[]): number {
   return mineCount;
 }
 
-export function updatedFlagCell(cell: Cell): Cell {
+export function getUpdatedFlagCell(cell: Cell): Cell {
   return {
     ...cell,
     pos: {
@@ -113,7 +113,7 @@ export function updatedFlagCell(cell: Cell): Cell {
   };
 }
 
-export function updatedHiddenCell(cell: Cell): Cell {
+export function getUpdatedHiddenCell(cell: Cell): Cell {
   return {
     ...cell,
     pos: {
