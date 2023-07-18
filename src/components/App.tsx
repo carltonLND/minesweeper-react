@@ -1,11 +1,11 @@
-import { Grid } from "./Grid";
+import { Game } from "./Game";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <div className="grid-container">
-        <Grid width={10} height={10} mineChance={30} />
+        <Game width={10} height={10} mineChance={25} />
       </div>
     </div>
   );
