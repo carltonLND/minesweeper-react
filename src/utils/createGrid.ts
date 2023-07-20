@@ -1,6 +1,6 @@
 export type Cell = Mine | Tile;
 
-interface Mine {
+export interface Mine {
   id: number;
   pos: Position;
   isHidden: boolean;
@@ -8,7 +8,7 @@ interface Mine {
   isMine: true;
 }
 
-interface Tile {
+export interface Tile {
   id: number;
   pos: Position;
   isHidden: boolean;
@@ -125,4 +125,37 @@ export function getUpdatedHiddenCell(cell: Cell): Cell {
     },
     isHidden: cell.isFlagged ? true : false,
   };
+}
+
+export function getCellsToReveal(cellArray: Cell[], clickedCell: Cell): Cell[] {
+  const checkedCells = new Set<Cell>();
+
+  function filterCells(cell: Cell) {
+    checkedCells.add(cell);
+
+    if (!cell.isMine && cell.nearbyMines !== 0) {
+      return [cell];
+    }
+
+    const cellsToReveal = cellArray.filter((t) => {
+      if (checkedCells.has(t)) {
+        return false;
+      }
+
+      const offsetX = Math.abs(t.pos.x - cell.pos.x);
+      const offsetY = Math.abs(t.pos.y - cell.pos.y);
+
+      return offsetX <= 1 && offsetY <= 1;
+    });
+
+    for (const filteredCell of cellsToReveal) {
+      if (!filteredCell.isMine && filteredCell.nearbyMines === 0) {
+        cellsToReveal.push(...filterCells(filteredCell));
+      }
+    }
+
+    return cellsToReveal;
+  }
+
+  return filterCells(clickedCell);
 }

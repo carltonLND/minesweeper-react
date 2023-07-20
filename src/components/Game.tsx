@@ -3,6 +3,7 @@ import {
   generateCells,
   getUpdatedHiddenCell,
   getUpdatedFlagCell,
+  getCellsToReveal,
 } from "../utils/createGrid";
 import { calcCellClass } from "../utils/cellStyle";
 import { useState, useEffect, useReducer } from "react";
@@ -32,16 +33,28 @@ export function Game({ width, height, mineChance }: GameProps): JSX.Element {
   };
 
   const handleLeftClick = (cell: Cell) => {
+    if (cell.isMine) {
+      setGameState("loss");
+      return handleRestart();
+    }
+
+    const cellsToReveal = getCellsToReveal(cellState, cell);
+
     cellDispatch({
       type: "update_cell",
       id: cell.id,
       updatedCell: getUpdatedHiddenCell(cell),
     });
 
-    if (cell.isMine) {
-      setGameState("loss");
-      handleRestart();
-    } else if (isGameWin(cellState, cell.id)) {
+    for (const safeCell of cellsToReveal) {
+      cellDispatch({
+        type: "update_cell",
+        id: safeCell.id,
+        updatedCell: getUpdatedHiddenCell(safeCell),
+      });
+    }
+
+    if (isGameWin(cellState, cell.id)) {
       setGameState("win");
       handleRestart();
     }

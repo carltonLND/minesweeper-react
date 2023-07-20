@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <div className="grid-container">
-        <Game width={10} height={10} mineChance={25} />
+        <Game width={10} height={10} mineChance={20} />
       </div>
     </div>
   );
